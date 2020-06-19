@@ -1,0 +1,32 @@
+NEWS
+====
+
+Release Notes
+-------------
+0.20
+Added the ability to search all calendar entries for a regular expression.
+Also added the ability to print all calendar entries to screen.
+
+0.19
+Extended the ability to print previous entries: "clcal -d 7 -w -9" will print calendar entries for nine weeks prior to today, then today's entries, then the entries for the next seven days.  "clcal -w -9 -w" will achieve the same output.  Note that the negative period modifier must be specified (the positive period modifier is 1 by implication unless specified), so that in order to show calendar entries for one week prior to and one week after today, you could use: "clcal -w -w -1".
+Fixed a couple of bugs where clcal would core dump instead of displaying the customary brief usage message.
+
+0.18
+Added the ability to print previous entries using negative period modifiers, for example: "clcal -d -7" will print the calendar entries for the seven days prior to today.  This function has also been extended to searches, such that "clcal -s dentist -w -4" will search the four weeks prior to today for all calendar entries containing the string "dentist".
+The clcal options --searchfwd, -b, and --searchbck are now deprecated by the introduction of the use of negative numbers as search period modifiers and will be removed from later versions of clcal.
+If you are upgrading from clcal version 0.16a or earlier, please change your existing ~/.clcal/colour.cfg with the modified colour.cfg included, or make appropriate changes to your existing colour.cfg.
+
+0.17
+A new search function allows searching back through past calendar files.
+Note that searched past entries can be coloured differently to avoid confusion, so examine the modified colour.cfg file included with this release and make appropriate changes to your existing ~/.clcal/colour.cfg if you are upgrading.
+
+0.16a
+Bugfix: a sequence of date files, all empty bar one (near the centre) produces unusual output. Thanks to Andres for pointing this one out.
+
+0.16
+Added a search function.  Allows you to search your calendar for a regular expression. The search is case-insensitive. See README for more details.
+
+0.15
+Initial release
+
+

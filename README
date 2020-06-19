@@ -1,0 +1,134 @@
+clcal -- the command line calendar
+==================================
+The purpose of clcal is to provide a terminal-based on-screen reminder of
+appointments, important dates, and other events over a pre-defined range of
+days.
+
+I wrote it because I often forget to check my calendar for appointments,
+either because I'm too busy (!) to check, or I get sidetracked by e-mails
+and telephone calls.  However, I always login!
+
+clcal is not designed to store and display huge amounts of information.  It is
+just for brief reminders.
+
+
+How to install
+==============
+Compile the source with:
+
+	 make
+
+If all goes well, this will create the clcal binary.
+
+Copy this anywhere you like, preferably somewhere in your $PATH.
+(I put it in ~/bin)
+
+
+How to use
+==========
+clcal was designed to be run from your shell startup file such as (if you use
+bash) ~/.bashrc, but how you use it is up to you.
+
+If you only wish to be reminded once of your appointments, and not each time
+you open a new term (I tend to open lots), then put a pre-requisite check in
+before you run clcal, e.g.
+
+# check for number of terms, run clcal if only one term is open
+# (Eterm is used in this example)
+if [ `ps -ef | grep Eterm | grep $LOGNAME | grep -v grep | wc -l | awk '{ print $1 }'` = 1 ]
+   then
+      ~/bin/clcal -w
+fi
+# end check
+
+~/.calendar/year/month/date
+---------------------------
+This directory structure is absolutely required if you wish to make any use of
+clcal.  Note the following formats:
+
+~	    refers to your home directory
+.calendar   a directory
+year	    this directory represents the year in four-digit format, e.g. 2004
+month	    this directory represents the month in two-digit format, e.g. 05
+date	    this file represents the date in two-digit format, e.g. 09
+
+The date file contains the appointment/event information you wish to display.
+Just create and edit this file using your preferred editor.
+You are limited to 61 characters per line (how much information do you want to
+display fer cryin' out loud?)  Note that tabs may not be accurately echoed
+to the screen, so use spaces as a preference.
+
+~/.clcal/colour.cfg
+-------------------
+The colour.cfg file is optional.  Copy the sample from the source directory
+to the location listed if you wish to colour your output.  Edit the file to
+suit your requirements.  By default (i.e if you don't have a colour.cfg file),
+certain parts of the output are printed in bold.
+
+clcal command line options
+--------------------------
+-h, --help       Prints the help page.
+-v, --version    Prints version information.
+
+-d #, --day #    Prints your calendar entries for # number of days,
+                 or one day (today) if no number is specified. Negative
+                 numbers are allowed (e.g: -7) to print previous entries.
+-w #, --week #   Prints your calendar entries for # number of weeks (etc).
+-m #, --month #  Prints your calendar entries for # number of months (etc).
+-y #, --year #   Prints your calendar entries for # number of years (etc).
+
+                 The period options above (-d/w/m/y etc) may be combined
+                 in positive-negative pairs to display previous calendar
+                 entries and future calendar entries with the same command.
+                 For example: "clcal -d 7 -w -9" will print calendar
+                 entries for nine weeks prior to today, then today's
+                 entries, then the entries for the next seven days.
+                 "clcal -w -9 -w" will achieve the same output.
+
+-s xyz,         {Performs a search ahead in your calendar entries for the
+--search xyz    {regular expression "xyz". The search is case insensitive.
+--searchfwd xyz {The default is to search one year ahead, but this can be
+                {tailored by combining with the period flags above.
+                {e.g: "clcal -s doctor -m" or "clcal -w 7 -s dentist".
+                {If your regular expression has spaces in it, put quotes
+                {around it, e.g: clcal -s "bank holiday". Negative
+                {numbers are allowed (e.g: "clcal -w -7 -s dentist")
+                {to search through past entries (like the -b option).
+
+-b abc,         {Performs a search back in your calendar's (past) entries
+--searchbck abc {for the regular expression "abc". The search is case
+                {insensitive.  The default search period is one year, and
+                {may be modified in a similar way to the -s option.
+                {Negative numbers are not allowed with an explicit
+                {search back (-b or --searchbck).
+
+-a lmn,         {Performs a search through all your calendar's entries
+--all lmn       {for the regular expression "lmn". The search is case
+                {insensitive.  If the regular expression is omitted, then
+                {this option will print ALL your calendar entries to stdout.
+
+The options -b, and --searchbck are potentially deprecated by the introduction
+of the use of negative numbers as search modifiers.  After some thought,
+I have decided that these options will remain in future versions of clcal.
+
+Running clcal without any options will generate a brief usage message.
+
+
+Caveats
+=======
+*  The maximum length for a line in a date file is currently 61 characters.  If
+   you go beyond this, strange things happen.
+*  If the date file contains tabs, these may not be accurately echoed to the
+   screen, so please use spaces if you get unusual results.
+*  The --month/-m option actually searches for calendar entries 30 days (or
+   multiples of 30 days) ahead, not one calendar month.
+*  The output is emboldened/coloured using ANSI escape sequences.  If your term
+   cannot interpret these correctly, then I'm afraid clcal (as it is), is not
+   for you.
+*  This is my first published C program.  Learning all the time.
+
+
+website
+=======
+http://www.hyborian.demon.co.uk/clcal/
+

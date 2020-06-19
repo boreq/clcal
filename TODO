@@ -1,0 +1,36 @@
+Still to do
+===========
+
+
+Known Bugs
+==========
+
+1. Files with lines greater than 61 characters in length mess up the output.
+   (Is this beyond the scope of this program?  This is supposed to be for
+   short reminders.  Dunno.  I'm personally not that bothered by this.)
+
+To do
+=====
+
+
+0.17  Initial planned features complete.  I'm moving the development status of
+      clcal to "beta"  :)
+
+
+Possible future options
+=======================
+These are possible future options for clcal.  They are thoughts, musings,
+jottings, etc, and may not be implemented.
+
+clcal -x 5
+   search and print the next five calendar entries
+
+The option to create an appointment which lasts a number of days.  One
+possibility within the existing framework is create a file such as
+~/.calendar/2004/10/06.2 with an entry like "Linux Expo, London, Olympia".
+clcal would have to read this along with any other files in the directory
+such as 06, 06.5, etc.  AND it would have to know to read the file after
+the intial date has passed.  Hmm.  It might be easier echoing a line and
+redirecting it to several sequential files!
+
+
